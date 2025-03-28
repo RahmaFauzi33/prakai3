@@ -1,3 +1,10 @@
+import sys
+import locale
+
+# Set encoding
+sys.stdout.reconfigure(encoding='utf-8')
+locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+
 from flask import Flask, render_template, request, jsonify
 import numpy as np
 from sklearn.linear_model import LinearRegression

@@ -1,4 +1,4 @@
-Flask==3.0.0
+Flask==2.0.1
 Flask-SQLAlchemy==3.1.1
 Flask-Bcrypt==1.0.1
 Flask-Migrate==4.0.5
@@ -6,7 +6,8 @@ Flask-Login==0.6.3
 gunicorn==23.0.0
 flask
 gunicorn
-numpy
-matplotlib
-sklearn
+numpy==1.21.0
+matplotlib==3.4.2
+scikit-learn==0.24.2
 pandas
+joblib==1.1.0
