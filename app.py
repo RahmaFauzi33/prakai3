@@ -1,9 +1,17 @@
 import sys
 import locale
+import warnings
+
+warnings.filterwarnings('ignore')
 
 # Set encoding
-sys.stdout.reconfigure(encoding='utf-8')
-locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8')
+
+try:
+    locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+except:
+    pass
 
 from flask import Flask, render_template, request, jsonify
 import numpy as np
