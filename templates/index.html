@@ -4,56 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prediksi Harga Tanah</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Prediksi Harga Tanah</h1>
-        <form id="predictionForm">
-            <div class="form-group">
-                <label for="luas_tanah">Luas Tanah (m²)</label>
-                <input type="number" id="luas_tanah" name="luas_tanah" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="lokasi">Lokasi</label>
-                <select id="lokasi" name="lokasi" required>
-                    <option value="Jakarta">Jakarta</option>
-                    <option value="Bandung">Bandung</option>
-                    <option value="Tangerang">Tangerang</option>
-                </select>
-            </div>
-            
-            <button type="submit" class="predict-btn">Prediksi</button>
-        </form>
-
-        <div id="hasil" class="hasil" style="display: none;">
-            <div class="prediction-result"></div>
-            <h2>Hasil Prediksi</h2>
-            <div class="plot-container">
-                <img id="plot" src="" alt="Hasil Prediksi">
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Prediksi Harga Tanah</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <form id="predictionForm">
+                            <div class="mb-3">
+                                <label for="luas_tanah" class="form-label">Luas Tanah (m²)</label>
+                                <input type="number" class="form-control" id="luas_tanah" name="luas_tanah" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="lokasi" class="form-label">Lokasi</label>
+                                <select class="form-select" id="lokasi" name="lokasi" required>
+                                    <option value="">Pilih Lokasi</option>
+                                    <option value="Jakarta">Jakarta</option>
+                                    <option value="Bandung">Bandung</option>
+                                    <option value="Tangerang">Tangerang</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Prediksi</button>
+                        </form>
+                        <div id="hasil" class="mt-4 d-none">
+                            <h4 class="text-center">Hasil Prediksi</h4>
+                            <div class="alert alert-success" role="alert">
+                                <p class="mb-0" id="prediksiText"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <script>
-        document.getElementById('predictionForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            
-            fetch('/predict', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('hasil').style.display = 'block';
-                document.querySelector('.prediction-result').textContent = 
-                    'Prediksi harga rumah: ' + data.prediksi;
-                document.getElementById('plot').src = 'data:image/png;base64,' + data.plot;
-            });
-        });
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
-</html>
+</html> 
