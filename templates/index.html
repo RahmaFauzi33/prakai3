@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediksi Harga Tanah</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Prediksi Harga Tanah</h1>
+        <form id="predictionForm">
+            <div class="form-group">
+                <label for="luas_tanah">Luas Tanah (m²)</label>
+                <input type="number" id="luas_tanah" name="luas_tanah" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="lokasi">Lokasi</label>
+                <select id="lokasi" name="lokasi" required>
+                    <option value="Jakarta">Jakarta</option>
+                    <option value="Bandung">Bandung</option>
+                    <option value="Tangerang">Tangerang</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="predict-btn">Prediksi</button>
+        </form>
+
+        <div id="hasil" class="hasil" style="display: none;">
+            <div class="prediction-result"></div>
+            <h2>Hasil Prediksi</h2>
+            <div class="plot-container">
+                <img id="plot" src="" alt="Hasil Prediksi">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            fetch('/predict', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('hasil').style.display = 'block';
+                document.querySelector('.prediction-result').textContent = 
+                    'Prediksi harga rumah: ' + data.prediksi;
+                document.getElementById('plot').src = 'data:image/png;base64,' + data.plot;
+            });
+        });
+    </script>
+</body>
+</html>
